@@ -34,6 +34,21 @@ export const UpdateRooms = async (req, res, next) => {
     next(err);
   }
 };
+export const UpdateRoomsAvailability = async (req, res, next) => {
+  try {
+    await Room.updateOne(
+      { "roomNumbers._id": req.params.id },
+      {
+        $push: {
+          "roomNumbers.$.unavailbaleDate": req.body.dates,
+        },
+      }
+    );
+    res.status(200).json("Room status updated");
+  } catch (err) {
+    next(err);
+  }
+};
 export const DeleteRooms = async (req, res, next) => {
   const hotelId = req.params.hotelId;
 

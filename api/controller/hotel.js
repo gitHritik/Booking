@@ -1,4 +1,5 @@
 import Hotel from "../models/Hotel.js";
+import Room from "../models/Room.js";
 
 //Here i will define routes in controllers
 export const createHotel = async (req, res, next) => {
@@ -79,5 +80,19 @@ export const countBytype = async (req, res, next) => {
     ]);
   } catch (error) {
     next(error);
+  }
+};
+
+export const getHotelRooms = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    const list = await Promise.all(
+      hotel.rooms.map((room) => {
+        return Room.findById(room);
+      })
+    );
+    res.status(200).json(list);
+  } catch (err) {
+    next(err);
   }
 };

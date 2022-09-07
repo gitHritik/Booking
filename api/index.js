@@ -25,7 +25,7 @@ mongoose.connection.on("err", (err) => {
 app.use(cookieParser());
 app.use(express.json());
 // middlewares
-app.use("/api/user", userRoute);
+app.use("/api/users", userRoute);
 app.use("/api/hotels", hotelRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/rooms", roomRoute);
